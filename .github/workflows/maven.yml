@@ -38,7 +38,7 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: ezambomsantana/user:latest
+        tags: ezambomsantana/user:${{ github.sha }}
         
     - name: executing remote ssh commands using password
       uses: appleboy/ssh-action@master
@@ -50,5 +50,5 @@ jobs:
         script: |
           docker stop user
           docker rm --force user
-          docker run  -e MONGO_PASSWORD=${{ secrets.MONGO_PASSWORD }} -d -p 8082:8080 --name user ezambomsantana/user:latest
+          docker run -e MONGO_PASSWORD=${{ secrets.MONGO_PASSWORD }} -d -p 8082:8080 --name user ezambomsantana/user:${{ github.sha }}
           
