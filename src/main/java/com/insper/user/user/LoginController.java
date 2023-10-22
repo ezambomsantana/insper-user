@@ -33,7 +33,7 @@ public class LoginController {
     }
 
     @GetMapping("/token")
-    public TokenDTO getToken(@RequestHeader String token) {
+    public TokenDTO getToken(@RequestHeader(name = "token") String token) {
         ReturnUserDTO user = loginService.get(token);
 
         TokenDTO tokenDTO = new TokenDTO();

@@ -26,6 +26,11 @@ public class UserService {
     }
 
     public ReturnUserDTO saveUser(SaveUserDTO saveUser) {
+
+        if (userRepository.existsByEmail(saveUser.getEmail())) {
+            throw new UserAlreadyExistsException();
+        }
+
         User user = new User();
         String encoded = DigestUtils
                 .md5DigestAsHex(saveUser.getPassword().getBytes()).toUpperCase();
