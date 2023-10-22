@@ -10,5 +10,4 @@ import java.util.List;
 public class SaveUserDTO {
     private String email;
     private String password;
-    private List<String> roles;
 }
