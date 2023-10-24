@@ -42,4 +42,15 @@ public class LoginController {
         return tokenDTO;
     }
 
+    @GetMapping("/token/{token}")
+    public TokenDTO getTokenPath(@PathVariable String token) {
+        ReturnUserDTO user = loginService.get(token);
+
+        TokenDTO tokenDTO = new TokenDTO();
+        tokenDTO.setEmail(user.getEmail());
+        tokenDTO.setToken(token);
+        return tokenDTO;
+    }
+
+
 }

@@ -38,6 +38,8 @@ public class LoginFilter implements Filter {
 
         if (method.equals("POST") && openPostRoutes.contains(uri)) {
             chain.doFilter(request, response);
+        } else  if (method.equals("GET") && uri.contains("/token")) {
+            chain.doFilter(request, response);
         } else {
             ReturnUserDTO user = loginService.get(token);
             if (user != null) {
