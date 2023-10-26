@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -36,7 +37,9 @@ public class LoginFilter implements Filter {
         String uri = req.getRequestURI();
         String method = req.getMethod();
 
-        if (method.equals("POST") && openPostRoutes.contains(uri)) {
+        if (method.equals("OPTIONS")) {
+            chain.doFilter(request, response);
+        } else if (method.equals("POST") && openPostRoutes.contains(uri)) {
             chain.doFilter(request, response);
         } else  if (method.equals("GET") && uri.contains("/token")) {
             chain.doFilter(request, response);
